@@ -79,7 +79,7 @@ class PostController extends Controller
 
     public function userposts($id)
     {
-        return new PostCollection(Post::where('user_id',$id)->paginate(5));
+        return new PostCollection(Post::where('user_id',$id)->withCount('likes')->paginate(5));
     }
     public function myposts()
     {

@@ -30,6 +30,8 @@ class UserResource extends JsonResource
                         return new FriendResource(Friend::friendship($this->id));
                     })
                 ],
+                'profileimage'=>new UserImageResource($this->profileimage),
+                'coverimage'=>new UserImageResource($this->coverimage),
                 'links'=>[
                     'self'=>url('/users/'.$this->id)
                 ]

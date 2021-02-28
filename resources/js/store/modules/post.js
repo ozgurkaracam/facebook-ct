@@ -35,6 +35,7 @@ const actions={
             .then(response => {
                 state.loadmorestatus=true
                 commit('setPosts',response.data.data)
+                commit('setmeta',response.data.meta)
             })
     },
     addPost({commit},text){

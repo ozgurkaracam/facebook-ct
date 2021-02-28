@@ -73,4 +73,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function profileimage()
+    {
+        return $this->hasOne(UserImage::class)->where('type','profile')->withDefault(['image'=>'deneme']);
+    }
+
+    public function coverimage()
+    {
+        return $this->hasOne(UserImage::class)->where('type','cover')->withDefault(['image'=>'deneme']);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(UserImage::class);
+    }
 }

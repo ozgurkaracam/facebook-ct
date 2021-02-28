@@ -30,6 +30,7 @@
             <NewPost v-if="false" />
             <Post v-if="userposts" v-for="post in userposts" :key="post.post_id" :post="post" />
             <p v-if="userposts.length <1"> No Content Posts... </p>
+            <LoadMore :posts="userposts" />
         </div>
     </div>
 </template>
@@ -37,11 +38,12 @@
 <script>
 import Post from "../../components/Post";
 import NewPost from "../../components/NewPost";
+import LoadMore from "../../components/LoadMore";
 import {mapGetters} from "vuex";
 
 export default {
     name: "ProfileFeed",
-    components: {Post, NewPost},
+    components: {Post, NewPost, LoadMore},
     data() {
         return {
             user: {},

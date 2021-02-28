@@ -22,6 +22,7 @@ Route::middleware('auth:api')->group(function(){
     Route::post('/users/deletefriend',[\App\Http\Controllers\Api\UserController::class,'deletefriend']);
     Route::get('/users/{id}/posts',[\App\Http\Controllers\Api\PostController::class,'userposts']);
     Route::apiResource('posts',\App\Http\Controllers\Api\PostController::class);
+    Route::apiResource('/users/{userid}/images',\App\Http\Controllers\UserImageController::class);
     Route::apiResource('users',\App\Http\Controllers\Api\UserController::class);
     Route::apiResource('likes',\App\Http\Controllers\LikeController::class);
     Route::apiResource('/posts/{post}/comments',\App\Http\Controllers\Api\CommentController::class);
