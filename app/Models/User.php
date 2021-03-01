@@ -76,12 +76,12 @@ class User extends Authenticatable
 
     public function profileimage()
     {
-        return $this->hasOne(UserImage::class)->where('type','profile')->withDefault(['image'=>'deneme']);
+        return $this->hasOne(UserImage::class)->where('type','profile')->withDefault(['image'=>'krWqntZZDEIZuRdiN7EdfMj9P5KK5WzV3BFaGZ1a.jpg']);
     }
 
     public function coverimage()
     {
-        return $this->hasOne(UserImage::class)->where('type','cover')->withDefault(['image'=>'deneme']);
+        return $this->hasOne(UserImage::class)->where('type','cover')->withDefault(['image'=>'krWqntZZDEIZuRdiN7EdfMj9P5KK5WzV3BFaGZ1a.jpg']);
     }
 
     public function images()

@@ -38,14 +38,14 @@ const actions={
                 commit('setmeta',response.data.meta)
             })
     },
-    addPost({commit},text){
-        axios.post('/api/posts',{'body':text})
+    addPost({commit},post){
+        var data=new FormData();
+        data.append('body',post.body);
+        data.append('image',post.image);
+        return axios.post('/api/posts',data)
             .then(res=>{
                 commit('addPost',res.data)
-                this.$swal({
-                    'text':'Added Post!',
-                    'icon':'success'
-                });
+                console.log(res)
             })
     },
     likepost({commit,state},postid){

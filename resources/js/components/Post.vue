@@ -3,7 +3,7 @@
         <div class="flex flex-col p-4">
             <div class="flex items-center">
                 <div class="w-8">
-                    <img src="https://cdn.pixabay.com/photo/2014/07/09/10/04/man-388104_960_720.jpg" alt="profile image for user" class="w-8 h-8 object-cover rounded-full">
+                    <img :src="imagepath+post.data.attributes.posted_by.data.profileimage.data.attributes.image_path" alt="profile image for user" class="w-8 h-8 object-cover rounded-full">
                 </div>
                 <div class="ml-6">
                     <div class="text-sm font-bold">{{ post.data.attributes.posted_by.data.attributes.name}}</div>
@@ -15,8 +15,8 @@
             </div>
         </div>
 
-        <div class="w-full" v-if="post.data.attributes.image">
-            <img :src="'http://localhost:8000/images/'+post.data.attributes.image" alt="post image" class="w-full">
+        <div class="w-full p-3" v-if="post.data.attributes.post_image">
+            <img :src="post.data.attributes.post_image" alt="post image" class="object-cover w-full">
         </div>
 
         <div class="px-4 pt-2 flex justify-between text-gray-700 text-sm">
@@ -44,7 +44,7 @@
             <div v-for="comment in comments" class="w-full bg-white border-t border-gray-200 px-3 py-2">
                 <div class="flex justify-between items-center">
                     <div class="w-min-w">
-                        <img src="https://cdn.pixabay.com/photo/2014/07/09/10/04/man-388104_960_720.jpg" class="w-8 h-8 rounded-full object-cover" alt="">
+                        <img :src="imagepath+comment.data.attributes.data.posted_by.data.profileimage.data.attributes.image_path" class="w-8 h-8 rounded-full object-cover" alt="">
                     </div>
                     <div class="ml-2 w-full">
                         <div>
@@ -62,7 +62,7 @@
             <div class="px-3 py-2">
                 <div class="flex">
                     <div class="w-min-w">
-                        <img src="https://cdn.pixabay.com/photo/2014/07/09/10/04/man-388104_960_720.jpg" class="w-8 h-8 rounded-full object-cover" alt="">
+                        <img :src="imagepath+getAuthUser.profileimage.data.attributes.image_path" class="w-8 h-8 rounded-full object-cover" alt="">
                     </div>
                     <div class="w-full mx-2">
                         <input
@@ -100,6 +100,7 @@
           }
         },
         computed:{
+            ...mapGetters(['imagepath','getAuthUser','getUser']),
             comments(){
                 return this.post.data.comments.data.data
             },

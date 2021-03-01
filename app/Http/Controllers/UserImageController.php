@@ -40,7 +40,7 @@ class UserImageController extends Controller
         $request->type=='profile' ? $image->resize(700,700) : $image->resize(1200,500);
 
         $image->save(public_path('images/').$imageName);
-        $image=UserImage::create([
+        $image=UserImage::updateOrCreate(['type'=>$request->type],[
            'type'=>$request->type,
            'image'=>$imageName,
             'width'=> $request->width ?? null,

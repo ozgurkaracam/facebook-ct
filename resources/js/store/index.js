@@ -10,6 +10,14 @@ const store=createStore({
         Post,
         Comment
 
+    },
+    getters:{
+        sitename(){
+
+        },
+        imagepath(){
+            return 'http://localhost:8000/images/'
+        }
     }
 });
 

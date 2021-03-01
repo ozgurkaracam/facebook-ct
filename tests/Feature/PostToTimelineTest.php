@@ -5,11 +5,11 @@ namespace Tests\Feature;
 use App\Models\Post;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class PostToTimelineTest extends TestCase
 {
-    use RefreshDatabase;
     /** @test */
     public function a_user_can_post_a_text_post()
     {
@@ -38,6 +38,36 @@ class PostToTimelineTest extends TestCase
                 ],
                 'links'=>[
                     'self'=>url('/api/posts/'.$post->id)
+                ]
+
+            ]
+        ]);
+    }
+
+    /** @test */
+    public function user_can_send_image_post()
+    {
+        $this->withoutExceptionHandling();
+        $this->actingAs($user = \App\Models\User::factory()->create() ,'api');
+        $file=UploadedFile::fake()->image('foo.jpg',500,500);
+        $response=$this->post('/api/posts',[
+
+            'image'=>$file,
+            'body'=>'testing body',
+        ]);
+        $response->assertStatus(201)->assertJson([
+            'data'=>[
+                'type'=>'posts',
+                'attributes'=>[
+                    'posted_by'=>[
+                        'data'=>[
+                            'attributes'=>[
+                                'name'=>$user->name
+                            ]
+                        ]
+                    ],
+                    'post_body'=>'testing body',
+                    'post_image'=>url('images/'.$file->hashName())
                 ]
 
             ]

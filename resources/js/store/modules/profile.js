@@ -9,7 +9,8 @@ const state={
 const mutations={
     setuser(state,user){
         state.user=user
-        state.friendship=user.attributes.friendship.data
+        if(state.user.user_id!=user.user_id)
+            state.friendship=user.attributes.friendship.data
     },
     setButtonText(state,text){
         state.addFriendButtonText=text

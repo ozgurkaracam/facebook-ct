@@ -9,6 +9,7 @@ use App\Models\Friend;
 use App\Models\Post;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
@@ -37,10 +38,16 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-           'body'=>'required'
+           'body'=>'required_without:image',
+            'image'=>'required_without:body'
         ]);
-        $post=$request->user()->posts()->create(['body'=>$request->body]);
-        return new PostResource($post);
+        if(!is_null($request->file('image'))){
+            $imageName=$request->file('image')->hashName();
+            $img=Image::make($request->file('image'))->resize(500,500);
+            $img->save(public_path('images/').$imageName);
+        }
+        $post=$request->user()->posts()->create(['body'=>$request->body,'image'=>$imageName ?? null]);
+        return new \App\Http\Resources\Post($post);
     }
 
     /**

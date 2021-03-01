@@ -2,12 +2,25 @@
     <div>
         <div v-if="getUser" class="flex flex-col relative mb-10">
             <div class="relative">
+
                 <div class="w-full h-64 overflow-hidden">
-                    <img src="https://cdn.pixabay.com/photo/2014/02/27/16/10/tree-276014__340.jpg" class="w-full object-cover" alt="">
+                <CoverImage :image="{
+                    imagepath:imagepath+getUser.coverimage.data.attributes.image_path,
+                    type:'cover',
+                    width:1400,
+                    height:400,
+                    class:'w-full cursor-pointer object-cover'
+                }" />
                 </div>
                 <div class="absolute bottom-0 -mb-8 left-0 items-center flex justify-between w-full">
                     <div class="flex items-center">
-                        <img class="ml-4 rounded-full w-32 h-32 shadow-lg border-4 border-white" src="https://cdn.pixabay.com/photo/2014/07/09/10/04/man-388104_960_720.jpg" alt="">
+                        <CoverImage :image="{
+                        imagepath:imagepath+getUser.profileimage.data.attributes.image_path,
+                            type:'profile',
+                            width:700,
+                         height:700,
+                        class:'ml-4 rounded-full w-32 h-32 shadow-lg border-4 cursor-pointer border-white'
+                }" />
                         <p class="text-2xl font-bold text-gray-700 ml-4 ">{{getUser.attributes.name}}</p>
                     </div>
                     <div>
@@ -40,10 +53,11 @@ import Post from "../../components/Post";
 import NewPost from "../../components/NewPost";
 import LoadMore from "../../components/LoadMore";
 import {mapGetters} from "vuex";
+import CoverImage from "../../components/CoverImage";
 
 export default {
     name: "ProfileFeed",
-    components: {Post, NewPost, LoadMore},
+    components: {Post, NewPost, LoadMore, CoverImage},
     data() {
         return {
             user: {},
@@ -58,7 +72,7 @@ export default {
 
     },
     computed:{
-        ...mapGetters(['userposts','getUser','getAuthUser','addFriendButtonText'])
+        ...mapGetters(['userposts','getUser','getAuthUser','addFriendButtonText','imagepath'])
     },
     methods:{
         addfriend(){

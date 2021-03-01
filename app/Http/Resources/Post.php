@@ -22,7 +22,7 @@ class Post extends JsonResource
                 'posted_by'=>new UserResource($this->user),
                 'post_body'=>$this->body,
                 'post_created_date'=>$this->date,
-                'image'=>$this->image,
+                'post_image'=>$this->image ? url('images/'.$this->image) : null,
                 'likes_count'=>$this->likes_count,
                 'like_status'=>$this->likestatus()
             ],
