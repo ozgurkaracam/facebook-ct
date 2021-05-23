@@ -16,7 +16,7 @@ const actions={
     fetchAuthUser({commit,state}){
         axios.get('/api/authuser')
             .then(res => {
-                commit('setAuthUser',res.data.data)
+                 commit('setAuthUser',res.data.data)
             }).then(res=> commit('setState'))
     },
 }
